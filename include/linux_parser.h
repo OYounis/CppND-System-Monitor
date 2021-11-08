@@ -2,6 +2,7 @@
 #define SYSTEM_PARSER_H
 
 #include <fstream>
+#include <map>
 #include <regex>
 #include <string>
 
@@ -19,7 +20,8 @@ const std::string kOSPath{"/etc/os-release"};
 const std::string kPasswordPath{"/etc/passwd"};
 
 // System
-float MemoryUtilization();
+int ParseStat(const std::string ref_key);
+int MemoryUtilization(std::map<std::string, unsigned long int> &memInfo);
 long UpTime();
 std::vector<int> Pids();
 int TotalProcesses();
@@ -40,13 +42,15 @@ enum CPUStates {
   kGuest_,
   kGuestNice_
 };
-std::vector<std::string> CpuUtilization();
+std::vector<int> CpuUtilization();
 long Jiffies();
 long ActiveJiffies();
 long ActiveJiffies(int pid);
 long IdleJiffies();
 
 // Processes
+int ParseStatus(const std::string ref_key, const int pid);
+std::string ParseStat(const int begin, const int end, const int pid);
 std::string Command(int pid);
 std::string Ram(int pid);
 std::string Uid(int pid);

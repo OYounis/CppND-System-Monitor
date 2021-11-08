@@ -7,6 +7,9 @@ class Processor {
 
   // TODO: Declare any necessary private members
  private:
+    int idle_ = 0;
+    int nonidle_ = 0;
+    int total_ = 0;
 };
 
 #endif
