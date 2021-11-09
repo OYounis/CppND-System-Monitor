@@ -106,9 +106,6 @@ long LinuxParser::UpTime() {
   return uptime;
 }
 
-// TODO: Read and return the number of jiffies for the system
-long LinuxParser::Jiffies() { return 0; }
-
 // TODO: Read and return the number of active jiffies for a PID
 // REMOVE: [[maybe_unused]] once you define the function
 long LinuxParser::ActiveJiffies(int pid) { 
@@ -118,12 +115,6 @@ long LinuxParser::ActiveJiffies(int pid) {
   timestream >> utime >> stime >> cutime >> cstime;
   return utime + stime +cutime + cstime; 
 }
-
-// TODO: Read and return the number of active jiffies for the system
-long LinuxParser::ActiveJiffies() { return 0; }
-
-// TODO: Read and return the number of idle jiffies for the system
-long LinuxParser::IdleJiffies() { return 0; }
 
 // TODO: Read and return CPU utilization
 vector<int> LinuxParser::CpuUtilization() {
@@ -196,7 +187,8 @@ int LinuxParser::ParseStatus(const std::string ref_key, const int pid) {
 // TODO: Read and return the memory used by a process
 // REMOVE: [[maybe_unused]] once you define the function
 string LinuxParser::Ram(int pid) {
-  return std::to_string(ParseStatus("VmSize:", pid) / 1000);
+  //Used  VmRSS instead of VmSize as advised in the previous review
+  return std::to_string(ParseStatus("VmRSS:", pid) / 1000);
 }
 
 // TODO: Read and return the user ID associated with a process
